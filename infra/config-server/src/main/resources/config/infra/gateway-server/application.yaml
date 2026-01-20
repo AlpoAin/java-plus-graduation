@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-server
+  main:
+    log-startup-info: false
+    banner-mode: off
+  cloud:
+    gateway:
+      discovery.locator.enabled: true # использование Discovery Service
+      routes:
+        - id: main_service_route
+          uri: lb://main-service
+          predicates:
+            - Path=/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, mappings, gateway
+  endpoint:
+    gateway:
+      enabled: true # для просмотра gateway/routes
+
+logging:
+  level:
+    root: INFO
