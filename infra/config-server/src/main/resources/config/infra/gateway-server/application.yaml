@@ -11,10 +11,25 @@ spring:
     gateway:
       discovery.locator.enabled: true # использование Discovery Service
       routes:
-        - id: main_service_route
-          uri: lb://main-service
+        - id: ewm_request_service_route
+          uri: lb://request-service
           predicates:
-            - Path=/**
+            - Path=/users/*/events/*/requests, /users/*/requests, /users/*/requests/*/cancel
+
+        - id: ewm_event_service_route
+          uri: lb://event-service
+          predicates:
+            - Path=/admin/categories/**, /categories/**, /users/*/events/**, /admin/events/**, /events/**, /admin/compilations/**, /compilations/**
+
+        - id: ewm_user_service_route
+          uri: lb://user-service
+          predicates:
+            - Path=/admin/users/**
+
+        - id: ewm_comment_service_route
+          uri: lb://comment-service
+          predicates:
+            - Path=/admin/comments/**, /users/*/comments/**, /comments/**
 
 management:
   endpoints:
