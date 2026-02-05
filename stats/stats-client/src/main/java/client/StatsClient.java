@@ -26,6 +26,8 @@ public class StatsClient {
     @Value("${services.stats-service-id:stats-server}")
     private String statsServiceId;
 
+    @Value("${apps:ewm-main}")
+    private String appName;
     private String getStatsServiceUrl() {
         ServiceInstance serviceInstance = discoveryClient.getInstances(statsServiceId).stream()
                 .findFirst()
@@ -43,6 +45,7 @@ public class StatsClient {
 
     public void hit(EndpointHitDto endpointHitDto) {
         try {
+            endpointHitDto.setApp(appName);
             RestClient restClient = getRestClient();
 
             restClient.post()
