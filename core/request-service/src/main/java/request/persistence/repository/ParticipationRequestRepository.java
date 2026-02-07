@@ -16,7 +16,7 @@ public interface ParticipationRequestRepository extends JpaRepository<Participat
     @Query("SELECT NEW dto.request.EventConfirmedRequestsDto(" +
             "pr.event, COUNT(pr)) " +
             "FROM ParticipationRequest pr " +
-            "WHERE pr.event IN :eventIds AND pr.status = request.persistence.model.RequestStatus.CONFIRMED " +
+            "WHERE pr.event IN :eventIds AND pr.status = enums.RequestStatus.CONFIRMED " +
             "GROUP BY pr.event")
     List<EventConfirmedRequestsDto> findConfirmedRequestsCountByEventIds(@Param("eventIds") List<Long> eventIds);
 

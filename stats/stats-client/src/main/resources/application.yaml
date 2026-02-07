@@ -1,2 +1,18 @@
 services:
   stats-service-id: stats-server
+
+apps:
+  ewm-main: ewm-main-service
+
+grpc:
+  client:
+    collector:
+      address: 'discovery:///collector'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+    analyzer:
+      address: 'discovery:///analyzer'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext

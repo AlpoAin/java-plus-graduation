@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"request", "util", "feign.event"})
+@ComponentScan(basePackages = {"request", "util", "feign.event", "client"})
 @EnableFeignClients(basePackages = {"feign.user", "feign.event"})
 public class RequestServiceApp {
     public static void main(String[] args) {
