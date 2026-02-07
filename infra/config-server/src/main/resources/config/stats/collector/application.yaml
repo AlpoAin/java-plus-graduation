@@ -1,0 +1,30 @@
+grpc:
+  server:
+    port: 0
+
+spring:
+  application:
+    name: collector
+  main:
+    log-startup-info: false
+    banner-mode: off
+  kafka:
+    properties:
+      bootstrap-servers: "localhost:9092"
+      key-serializer-class: "org.apache.kafka.common.serialization.VoidSerializer"
+      producer:
+        linger-ms: 5
+      topics:
+        user-actions-topic: "stats.user-actions.v1"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+logging:
+  level:
+    org.springframework.context: ERROR
+    org.apache.kafka: ERROR
+    springframework.cloud.netflix.eureka: INFO
