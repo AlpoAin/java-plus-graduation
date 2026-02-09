@@ -33,6 +33,14 @@ spring:
       hibernate:
         format_sql: true
 
+grpc:
+  client:
+    analyzer:
+      address: 'discovery:///analyzer'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+
 management:
   endpoints:
     web:
@@ -41,8 +49,8 @@ management:
 
 logging:
   level:
-    ewm: DEBUG
+    ewm: ERROR
     org.hibernate.SQL: DEBUG
     org.springframework:
-      boot.autoconfigure: DEBUG
-      context: DEBUG
+      boot.autoconfigure: ERROR
+      context: ERROR

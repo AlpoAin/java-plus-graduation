@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: aggregator
+  main:
+    log-startup-info: false
+    banner-mode: off
+  kafka:
+    properties:
+      bootstrap-servers: "localhost:9092"
+      key-serializer-class: "org.apache.kafka.common.serialization.VoidSerializer"
+      key-deserializer-class: "org.apache.kafka.common.serialization.VoidDeserializer"
+      consumer:
+        enable-auto-commit: false
+        poll-timeout-ms: 500
+        group-ids:
+          aggregator-user-actions-group-id: "aggregator-user-actions-group"
+      producer:
+        linger-ms: 5
+      topics:
+        user-actions-topic: "stats.user-actions.v1"
+        event-similarity-topic: "stats.events-similarity.v1"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+logging:
+  level:
+    org:
+      springframework.context: ERROR
+      apache.kafka: ERROR
+      springframework.cloud.netflix.eureka: INFO

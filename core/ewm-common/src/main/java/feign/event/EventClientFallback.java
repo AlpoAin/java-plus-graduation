@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class EventClientFallback implements feign.event.EventClient {
+public class EventClientFallback implements EventClient {
     @Override
     public EventFullDto getById(Long id) {
         return EventFullDto.builder().id(id).build();

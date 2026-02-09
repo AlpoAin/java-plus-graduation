@@ -32,7 +32,7 @@ public interface EventMapper {
     @Mapping(target = "initiator", source = "user")
     @Mapping(target = "confirmedRequests", ignore = true)
     @Mapping(target = "paid", source = "event.isPaid")
-    @Mapping(target = "views", ignore = true)
+    @Mapping(target = "rating", ignore = true)
     EventShortDto toShortDto(Event event, UserShortDto user);
 
     @Mapping(target = "id", source = "event.id")
@@ -50,7 +50,7 @@ public interface EventMapper {
     @Mapping(target = "category", source = "event.category", qualifiedByName = "categoryToDto")
     @Mapping(target = "initiator", source = "user")
     @Mapping(target = "confirmedRequests", ignore = true)
-    @Mapping(target = "views", ignore = true)
+    @Mapping(target = "rating", ignore = true)
     EventFullDto toFullDto(Event event, UserShortDto user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

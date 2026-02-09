@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import util.constants.EwmHeaders;
 
 import java.util.List;
 
@@ -28,13 +29,27 @@ public class PublicEventController {
         int page = from / size;
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        List<EventShortDto> events = eventService.getPublicEvents(requestParams, pageRequest, request.getRemoteAddr());
+        List<EventShortDto> events = eventService.getPublicEvents(requestParams, pageRequest);
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EventFullDto> getEvent(@PathVariable Long id, HttpServletRequest request) {
-        EventFullDto event = eventService.getPublicEventById(id, request.getRemoteAddr());
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventFullDto> getEvent(@PathVariable Long eventId,
+                                                 @RequestHeader(name = EwmHeaders.USER_ID) Long userId) {
+        EventFullDto event = eventService.getPublicEventById(eventId, userId);
         return ResponseEntity.ok(event);
+    }
+
+    @GetMapping("/recommendations")
+    public ResponseEntity<List<EventFullDto>> getRecommendations(@RequestParam Integer limit,
+                                                                 @RequestHeader(name = EwmHeaders.USER_ID) Long userId) {
+        List<EventFullDto> recs = eventService.getRecommendations(userId, limit);
+        return ResponseEntity.ok(recs);
+    }
+
+    @PutMapping("/{eventId}/like")
+    public void setLike(@PathVariable Long eventId,
+                        @RequestHeader(name = EwmHeaders.USER_ID) Long userId) {
+        eventService.setLike(eventId, userId);
     }
 }

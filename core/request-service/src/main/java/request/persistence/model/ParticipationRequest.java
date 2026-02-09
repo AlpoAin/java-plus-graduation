@@ -1,5 +1,6 @@
 package request.persistence.model;
 
+import enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
