@@ -27,7 +27,7 @@ public class AggregatorKafkaClientConfig {
 
     @Bean
     @Scope("prototype")
-    AggregatorKafkaClient kafkaClient() {
+    public AggregatorKafkaClient kafkaClient() {
         return new AggregatorKafkaClient() {
             private Consumer<Void, UserActionAvro> userActionConsumer;
             private Producer<Void, EventSimilarityAvro> similarityProducer;

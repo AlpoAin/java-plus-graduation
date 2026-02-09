@@ -31,22 +31,23 @@ public class EventStatsService {
     private final AnalyzerGrpcClient analyzerGrpcClient;
 
     public Map<Long, Double> getRatingsForEvents(List<Long> eventIds) {
-        Map<Long, Double> ratings = new LinkedHashMap<>();
         if (eventIds.isEmpty()) {
             return Map.of();
         }
 
         try {
             log.info("Getting ratings for eventIds {}", eventIds);
-            ratings = analyzerGrpcClient.streamInteractionsCount(InteractionsCountRequestProto.newBuilder()
-                    .addAllEventId(eventIds)
-                    .build()
-            ).collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
-        } catch (Exception e) {
-            log.error("Getting ratings for eventIds failed", e);
-        }
 
-        return ratings;
+            return analyzerGrpcClient.streamInteractionsCount(
+                    InteractionsCountRequestProto.newBuilder()
+                            .addAllEventId(eventIds)
+                            .build()
+            ).collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
+
+        } catch (Exception e) {
+            log.error("Getting ratings for eventIds failed: {}", eventIds, e);
+            throw new RuntimeException("Getting ratings for eventIds failed: " + eventIds, e);
+        }
     }
 
     public Map<Long, Long> getConfirmedRequestsBatch(List<Long> eventIds) {

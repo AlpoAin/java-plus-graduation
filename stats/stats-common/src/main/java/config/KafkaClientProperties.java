@@ -48,13 +48,4 @@ public class KafkaClientProperties {
         private String userActionsTopic;
         private String eventSimilarityTopic;
     }
-
-    /*@PostConstruct
-    public void logProps() {
-        System.out.println("bootstrap=" + bootstrapServers);
-        System.out.println("keyDeserializerClass=" + keyDeserializerClass);
-        System.out.println("analyzerUserActionsGroupId=" + consumer.groupIds.analyzerUserActionsGroupId);
-        System.out.println("userActionsTopic=" + topics.userActionsTopic);
-    }*/
-
 }
